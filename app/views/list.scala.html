@@ -1,0 +1,33 @@
+@(items : List[PreciousItem], itemForm: Form[(String,Int,String)])
+
+@import helper._
+
+@main("X-Mas Wish List") {
+  <h1>My X-Mas Wishlist</h1>
+
+  <ul>
+    @for(i <- (0 until items.size)) {
+      <li>
+        <span>I want @items(i).name (@items(i).price euro) and I want it @items(i).importance</span>
+
+        @form(routes.Application.deleteItem(i)) {
+          <input type="submit" value="Delete">
+        }
+      </li>
+    }
+  </ul>
+
+  <h2>I also wish</h2>
+
+  @form(routes.Application.createItem) {
+
+    @inputText(itemForm("name"))
+
+    @inputText(itemForm("price"))
+
+    @inputText(itemForm("importance"))
+
+    <input type="submit" value="Create">
+
+  }
+}
